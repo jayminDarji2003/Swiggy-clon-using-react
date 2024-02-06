@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Additional styles for the Food Carousel */
+.container {
+  max-width: 80%;
+}
+
+.prev-arrow,
+.next-arrow {
+  cursor: pointer;
+}
+
+.prev-arrow:hover,
+.next-arrow:hover {
+  background-color: #333;
+}
+
+
