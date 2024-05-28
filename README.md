@@ -19,3 +19,6 @@ To set up the project on your local machine, follow these simple steps:
    ```bash
    npm run dev
    ```
+
+## Have a look on it
+![Screenshot 2024-05-28 071851](https://github.com/jayminDarji2003/jayminDarji2003/assets/122532790/99215dc9-3bb2-47cd-8cde-f11672bf337f)
