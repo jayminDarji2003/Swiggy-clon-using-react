@@ -16,13 +16,16 @@ function RestaurantMenu() {
     dispatch(addItem(item)); // dispatch(action-->addItem("item name"))
   };
 
+  // console.log(restaurant);
+
   // Filter items based on search query
   const filteredItems =
-    restaurant?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards
+    restaurant?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards
       ?.flatMap((category) => category?.card?.card?.itemCards || [])
       ?.filter((item) =>
         item?.card?.info?.name.toLowerCase().includes(searchQuery.toLowerCase())
       );
+  console.log(filteredItems);
 
   return !restaurant ? (
     <Loader />
@@ -33,23 +36,23 @@ function RestaurantMenu() {
         <div className="w-1/2 my-7 flex justify-between">
           <div>
             <p className="text-xl font-bold">
-              {restaurant?.cards[0]?.card?.card?.info?.name}
+              {restaurant?.cards[2]?.card?.card?.info?.name}
             </p>
             <div className="flex mt-2">
               <p className="text-sm font-semibold text-gray-500">
-                {restaurant?.cards[0]?.card?.card?.info?.cuisines[0]}
+                {restaurant?.cards[2]?.card?.card?.info?.cuisines[0]}
               </p>
               <p className="text-sm font-semibold text-gray-500">
-                , {restaurant?.cards[0]?.card?.card?.info?.cuisines[1]}
+                , {restaurant?.cards[2]?.card?.card?.info?.cuisines[1]}
               </p>
             </div>
             <div className="flex gap-2">
               <p className="text-sm font-semibold text-gray-500">
-                {restaurant?.cards[0]?.card?.card?.info?.areaName}
+                {restaurant?.cards[2]?.card?.card?.info?.areaName}
               </p>
               <p className="text-sm font-semibold text-gray-500">
                 {
-                  restaurant?.cards[0]?.card?.card?.info?.sla
+                  restaurant?.cards[2]?.card?.card?.info?.sla
                     ?.lastMileTravelString
                 }
               </p>
@@ -61,7 +64,7 @@ function RestaurantMenu() {
                 style={{ color: " #808080" }}
               ></i>
               <p className="text-sm text-gray-500  font-semibold">
-                {restaurant?.cards[0]?.card?.card?.info?.feeDetails?.message}
+                {restaurant?.cards[2]?.card?.card?.info?.feeDetails?.message}
               </p>
             </div>
           </div>
@@ -70,13 +73,13 @@ function RestaurantMenu() {
             <div>
               <i className="fa-solid fa-star text-orange-400"></i>
               <span className="ml-2 font-bold text-orange-400">
-                {restaurant?.cards[0]?.card?.card?.info?.avgRating}
+                {restaurant?.cards[2]?.card?.card?.info?.avgRating}
               </span>
             </div>
             <hr />
             <div>
               <p className="text-xs">
-                {restaurant?.cards[0]?.card?.card?.info?.totalRatingsString}
+                {restaurant?.cards[2]?.card?.card?.info?.totalRatingsString}
               </p>
             </div>
           </div>
@@ -113,7 +116,9 @@ function RestaurantMenu() {
                   {item?.card?.info?.description}
                 </p>
                 <p className="mt-5 font-bold ">
-                  Price : ₹{item?.card?.info?.price / 100}
+                  Price : ₹
+                  {item?.card?.info?.price / 100 ||
+                    item?.card?.info?.defaultPrice / 100}
                 </p>
               </div>
 

@@ -66,7 +66,7 @@ function Cart() {
                   {item?.card?.info?.name}
                 </p>
                 <p className="font-bold py-2">
-                  Price : {item?.card?.info?.price / 100}
+                  Price : {item?.card?.info?.price / 100 || item?.card?.info?.defaultPrice / 100}
                 </p>
               </div>
               <div>
