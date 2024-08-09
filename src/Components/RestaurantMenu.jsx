@@ -87,9 +87,7 @@ function RestaurantMenu() {
                 className="fa-solid fa-person-biking"
                 style={{ color: " #808080" }}
               ></i>
-              <p className="text-sm text-gray-500  font-semibold">
-                {restaurant?.cards[2]?.card?.card?.info?.feeDetails?.message}
-              </p>
+              <p className="text-sm text-gray-500  font-semibold">2.5 km</p>
             </div>
           </div>
 
@@ -148,7 +146,7 @@ function RestaurantMenu() {
 
               <div className="flex flex-col gap-2">
                 <img
-                  className="w-36 h-32 hover:scale-90"
+                  className="w-36 h-32 hover:scale-90 transition-all"
                   src={RESTAURANT_MENU_FOOD_IMG + item?.card?.info?.imageId}
                   alt="image"
                 />

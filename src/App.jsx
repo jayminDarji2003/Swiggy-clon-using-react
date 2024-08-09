@@ -21,6 +21,7 @@ import store from "./utils/store";
 import Payment from "./Components/payment";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Profile from "./Components/Profile";
 
 // We are lazy loading the Instamart so don't import like this
 // import Instamart from "./Components/Instamart";
@@ -95,6 +96,9 @@ function App() {
 
             {/* rendering payment page */}
             <Route path="payment" element={<Payment />} />
+
+            {/* profile page  */}
+            <Route path="profile" element={<Profile />} />
 
             {/* Dynamic routes  */}
             <Route path="restaurant/:id" element={<RestaurantMenu />} />

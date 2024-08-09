@@ -1,15 +1,23 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import logo from "/logo.png";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const cartItems = useSelector((store) => store.cart.items);
+  const [user, setUser] = useState(localStorage.getItem("user"));
+
+  const location = useLocation(); // Get the current location
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
+
+  useEffect(() => {
+    // Update user state whenever the location changes
+    setUser(localStorage.getItem("user"));
+  }, [location]); // Dependency array includes `location`
 
   return (
     <div className="header sticky top-0 z-50 bg-white shadow-md">
@@ -42,25 +50,38 @@ function Header() {
               </li>
 
               <li className="font-semibold text-md hover:text-orange-500 cursor-pointer">
-                <Link to="/login" className="flex items-center gap-2">
-                  <i className="fa-regular fa-user"></i>
-                  <span>Sign in</span>
-                </Link>
-              </li>
-
-              <li className="font-semibold text-md hover:text-orange-500 cursor-pointer">
-                <Link to="/register" className="flex items-center gap-2">
-                  <i className="fa-regular fa-user"></i>
-                  <span>Sign up</span>
-                </Link>
-              </li>
-
-              <li className="font-semibold text-md hover:text-orange-500 cursor-pointer">
                 <Link to="/cart" className="flex items-center gap-2">
                   <i className="fa-solid fa-cart-shopping"></i>
                   <span>Cart ({cartItems.length})</span>
                 </Link>
               </li>
+
+              {user ? (
+                <li className="font-semibold text-md hover:text-orange-500 cursor-pointer">
+                  <Link
+                    to={"/profile"}
+                    className="font-bold p-2 underline text-orange-500"
+                  >
+                    {user.toUpperCase()}
+                  </Link>
+                </li>
+              ) : (
+                <li className="font-semibold text-md hover:text-orange-500 cursor-pointer">
+                  <Link to="/login" className="flex items-center gap-2">
+                    <i className="fa-regular fa-user"></i>
+                    <span>Sign in</span>
+                  </Link>
+                </li>
+              )}
+
+              {!user && (
+                <li className="font-semibold text-md hover:text-orange-500 cursor-pointer">
+                  <Link to="/register" className="flex items-center gap-2">
+                    <i className="fa-regular fa-user"></i>
+                    <span>Sign up</span>
+                  </Link>
+                </li>
+              )}
             </ul>
           </nav>
           <div className="sm:hidden">

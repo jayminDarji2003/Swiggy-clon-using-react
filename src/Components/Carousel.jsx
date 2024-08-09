@@ -38,7 +38,7 @@ const Carousel = ({ food }) => {
                             <img
                                 src={RESTAURANT_FOOD_URL + item.imageId}
                                 alt={item.text}
-                                className="w-full h-full object-cover rounded-lg"
+                                className=" h-full object-cover rounded-lg "
                             />
                         </div>
                     ))}
