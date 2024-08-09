@@ -1,19 +1,43 @@
 import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { RESTAURANT_MENU_FOOD_IMG } from "../config";
 import Loader from "./Loader";
 import useRestaurantMenu from "../Hooks/useRestaurantMenu";
 import { addItem } from "../utils/cartSlice";
 import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
 
 function RestaurantMenu() {
   const { id } = useParams(); // reading a dynamic URL
   const restaurant = useRestaurantMenu(id); // custom hook created to fetch the restaurant menu details.
   const dispatch = useDispatch();
   const [searchQuery, setSearchQuery] = useState(""); // State to hold search query
+  const [addedItems, setAddedItems] = useState([]); // State to track added items
+  const navigate = useNavigate();
 
   const handleAddItem = (item) => {
+    toast.success(
+      <div>
+        <div className="font-bold">{item?.card?.info?.name}</div>
+        <div>Item added to cart!</div>
+      </div>,
+      {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      }
+    );
     dispatch(addItem(item)); // dispatch(action-->addItem("item name"))
+    setAddedItems([...addedItems, item?.card?.info?.id]); // Add item ID to addedItems state
+  };
+
+  const handleRedirectToCart = () => {
+    navigate("/cart"); // Redirect to cart page
   };
 
   // console.log(restaurant);
@@ -25,7 +49,7 @@ function RestaurantMenu() {
       ?.filter((item) =>
         item?.card?.info?.name.toLowerCase().includes(searchQuery.toLowerCase())
       );
-  console.log(filteredItems);
+  // console.log(filteredItems);
 
   return !restaurant ? (
     <Loader />
@@ -129,11 +153,25 @@ function RestaurantMenu() {
                   alt="image"
                 />
                 <button
-                  className="bg-orange-400 p-1 rounded-md px-3 text-white flex justify-center items-center font-bold gap-1"
-                  onClick={() => handleAddItem(item)}
+                  className={`bg-orange-400 p-1 rounded-md px-3 text-white flex justify-center items-center font-bold gap-1 ${
+                    addedItems.includes(item?.card?.info?.id)
+                      ? "bg-green-500"
+                      : ""
+                  }`}
+                  onClick={() => {
+                    if (!addedItems.includes(item?.card?.info?.id)) {
+                      handleAddItem(item);
+                    } else {
+                      handleRedirectToCart();
+                    }
+                  }}
                 >
                   <i className="fa-solid fa-cart-shopping"></i>
-                  <p>ADD</p>
+                  <p>
+                    {addedItems.includes(item?.card?.info?.id)
+                      ? "ADDED"
+                      : "ADD"}
+                  </p>
                 </button>
               </div>
             </div>
