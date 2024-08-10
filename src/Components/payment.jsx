@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { clearCart } from "../utils/cartSlice";
+import { toast } from "react-toastify";
 
 function Payment() {
   const [cardNumber, setCardNumber] = useState("");
@@ -30,8 +31,21 @@ function Payment() {
     setExpiryDate("");
     setCvv("");
 
-    // Redirect or show success message after payment processing
-    alert("payment successfull");
+    toast.success(
+      <div>
+        <div className="font-bold">Payment successfully!!</div>
+      </div>,
+      {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      }
+    );
 
     navigate("/");
   };

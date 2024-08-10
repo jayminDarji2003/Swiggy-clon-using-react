@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react";
 import logo from "/logo.png";
 import { Link, useLocation } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const cartItems = useSelector((store) => store.cart.items);
   const [user, setUser] = useState(localStorage.getItem("user"));
+  const [isLoggedIn, setisLoggedIn] = useState(
+    localStorage.getItem("isLoggedIn")
+  );
 
   const location = useLocation(); // Get the current location
 
@@ -16,8 +19,9 @@ function Header() {
 
   useEffect(() => {
     // Update user state whenever the location changes
+    setisLoggedIn(localStorage.getItem("isLoggedIn"));
     setUser(localStorage.getItem("user"));
-  }, [location]); // Dependency array includes `location`
+  }, [location]);
 
   return (
     <div className="header sticky top-0 z-50 bg-white shadow-md">
@@ -56,7 +60,7 @@ function Header() {
                 </Link>
               </li>
 
-              {user ? (
+              {isLoggedIn ? (
                 <li className="font-semibold text-md hover:text-orange-500 cursor-pointer">
                   <Link
                     to={"/profile"}
@@ -74,7 +78,7 @@ function Header() {
                 </li>
               )}
 
-              {!user && (
+              {!isLoggedIn && (
                 <li className="font-semibold text-md hover:text-orange-500 cursor-pointer">
                   <Link to="/register" className="flex items-center gap-2">
                     <i className="fa-regular fa-user"></i>

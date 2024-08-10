@@ -6,7 +6,6 @@ import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
 import Error from "./Components/Error";
 import Offers from "./Components/Offers";
 import Help from "./Components/Help";
-import Authentication from "./Components/Authentication";
 import Cart from "./Components/Cart";
 import RestaurantMenu from "./Components/RestaurantMenu";
 import useRestaurant from "./Hooks/useRestaurant";
